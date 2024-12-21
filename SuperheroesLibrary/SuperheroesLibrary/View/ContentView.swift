@@ -13,20 +13,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [.black, Color("ColorPurple")]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .edgesIgnoringSafeArea(.all)
-                
+                Color("ColorPurple").edgesIgnoringSafeArea(.all)
+
                 VStack {
                     ZStack {
                         Image("cover")
                             .resizable()
                             .edgesIgnoringSafeArea(.top)
                         
-                        ForEach(0..<10, id: \.self) { index in
+                        ForEach(0..<8, id: \.self) { index in
                             Rectangle()
                                 .fill(Color.yellow.opacity(0.6))
                                 .frame(width: 4, height: 12)
@@ -44,13 +39,9 @@ struct ContentView: View {
                                 )
                         }
                         
-                        Text("Jarvis Hero Hub".uppercased())
-                            .font(.custom("Impact", size: 54))
-                            .foregroundColor(Color("ColorYellow"))
-                            .shadow(color: .black, radius: 0, x: 4, y: 8)
-                            .frame(maxWidth: UIScreen.main.bounds.width / 1.5, alignment: .leading)
-                            .multilineTextAlignment(.leading)
-                            .offset(x: -30, y: 200)
+                        CustomTitle(text:"Jarvis Hero Hub")
+                            .frame(maxWidth: UIScreen.main.bounds.width / 1.5)
+                            .offset(x: -60, y: 200)
                     }
                     
                     VStack {
@@ -61,13 +52,13 @@ struct ContentView: View {
                         
                         CustomButton(
                             title: "Biblioteca Épica",
-                            color: Color("ColorOrange"),
+                            color: Color("ColorPink"),
                             colorText: .white,
                             destination: APIHeroeView()
                         ).padding(.horizontal, 30)
                         
                         CustomButton(
-                            title: "Crea tu Superhéroe",
+                            title: "Tus Superhéroes",
                             color: Color("ColorGreen"),
                             colorText: .white,
                             destination: CustomHeroeView()

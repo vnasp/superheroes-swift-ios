@@ -8,46 +8,101 @@
 import SwiftUI
 
 struct APIHeroeView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isShowingSheet: Bool = false
+    
     @StateObject private var viewModel = APIHeroeViewModel()
 
     var body: some View {
         NavigationView {
-            Group {
-                if viewModel.isLoadingHeroes {
-                    ProgressView("Cargando héroes...")
-                } else {
-                    List(viewModel.heroes) { heroe in
-                        NavigationLink(destination: APIHeroeDetailView(heroId: heroe.id)) {
-                            HStack {
+            ZStack {
+                Color("ColorPurple").edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack {
+                        CustomTitle(text: "Biblioteca épica")
+                        
+                        Text("La info que necesitas de tu superhéroe favorito.")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                    }.padding()
+                    
+                    LazyVStack(spacing: 20) {
+                        ForEach(Array(viewModel.heroes.enumerated()), id: \.element.id) { index, heroe in
+                            HStack(spacing: 10) {
                                 AsyncImage(url: URL(string: heroe.imagen)) { image in
                                     image
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .overlay(
+                                            Rectangle()
+                                                .stroke(.white, lineWidth: 10)
+                                                .cornerRadius(6)
+                                        )
                                 } placeholder: {
                                     ProgressView()
                                 }
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-
+                                
                                 VStack(alignment: .leading) {
                                     Text(heroe.nombre)
                                         .font(.headline)
+                                        .foregroundColor(.black)
                                     Text("Primera aparición: \(heroe.primeraAparicion)")
                                         .font(.subheadline)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.black)
+                                }
+                                Spacer()
+                                NavigationLink(destination: APIHeroeDetailView(heroId: heroe.id)) {
+                                    Image(systemName: "chevron.right.circle.fill")
+                                        .font(.system(size: 34))
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
                                 }
                             }
+                            .padding()
+                            .background(Color("ColorGreen"))
+                            .cornerRadius(8)
+                            .shadow(color: .black, radius: 0, x: 6, y: 8)
+                        }
+                    }.padding(.horizontal, 20)
+                }
+                .onAppear {
+                    Task {
+                        await viewModel.fetchHeroes()
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "arrow.uturn.backward")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(Color("ColorYellow"))
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isShowingSheet.toggle()
+                        } label: {
+                            Image(systemName: "info.bubble.fill")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(Color("ColorYellow"))
+                        }
+                        .sheet(isPresented: $isShowingSheet) {
+                            InfoAppView()
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.medium, .large])
                         }
                     }
                 }
             }
-            .onAppear {
-                Task {
-                    await viewModel.fetchHeroes()
-                }
-            }
-            .navigationTitle("Biblioteca Épica")
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

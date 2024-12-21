@@ -21,7 +21,7 @@ struct CustomButton<Destination: View>: View {
                     .fill(color)
                     .frame(height: 50)
                     .cornerRadius(8)
-                    .shadow(color: .black, radius: 0, x: 4, y: 8)
+                    .shadow(color: .black, radius: 0, x: 6, y: 8)
 
                 
                 Text(title.uppercased())
