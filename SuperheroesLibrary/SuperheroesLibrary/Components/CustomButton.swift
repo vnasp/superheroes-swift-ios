@@ -10,21 +10,33 @@ import SwiftUI
 struct CustomButton<Destination: View>: View {
     var title: String
     var color: Color
+    var colorText: Color
     var destination: Destination
-
+    
+    
     var body: some View {
         NavigationLink(destination: destination) {
-            Text(title)
-                .font(.title)
-                .foregroundColor(.white)
-                .padding()
-                .frame(maxWidth: 250)
-                .background(color)
-                .cornerRadius(10)
+            ZStack {
+                Rectangle()
+                    .fill(color)
+                    .frame(height: 50)
+                    .cornerRadius(8)
+                    .shadow(color: .black, radius: 0, x: 4, y: 8)
+
+                
+                Text(title.uppercased())
+                    .font(.custom("Impact", size: 20))
+                    .foregroundColor(colorText)
+            }
+            .scaleEffect(1.05)
+            .animation(.easeInOut(duration: 0.2), value: true)
+            .padding()
         }
     }
 }
 
 #Preview {
-    CustomButton(title: "Botón Prueba", color: .red, destination: APIHeroeView())
+    ZStack {
+        CustomButton(title: "Botón Prueba", color: .yellow, colorText:.black, destination: APIHeroeView())
+    }.padding()
 }
