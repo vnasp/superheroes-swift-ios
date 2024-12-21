@@ -65,15 +65,28 @@ struct CustomHeroeView: View {
                                         
                                         Spacer()
                                         
-                                        Button {
-                                            selectedHeroe = heroe
-                                        } label: {
-                                            Image(systemName: "square.and.pencil")
-                                                .font(.system(size: 16))
-                                                .fontWeight(.heavy)
-                                                .foregroundColor(Color("ColorGreen"))
-                                                .padding()
-                                                .background(Circle().fill(Color.white))
+                                        VStack {
+                                            Button {
+                                                selectedHeroe = heroe
+                                            } label: {
+                                                Image(systemName: "square.and.pencil")
+                                                    .font(.system(size: 16))
+                                                    .fontWeight(.heavy)
+                                                    .foregroundColor(Color("ColorGreen"))
+                                                    .padding()
+                                                    .background(Circle().fill(Color.white))
+                                            }
+                                            
+                                            Button {
+                                                deleteHeroe(heroe)
+                                            } label: {
+                                                Image(systemName: "trash")
+                                                    .font(.system(size: 16))
+                                                    .fontWeight(.heavy)
+                                                    .foregroundColor(Color.red)
+                                                    .padding()
+                                                    .background(Circle().fill(Color.white))
+                                            }
                                         }
                                     }
                                     .padding()

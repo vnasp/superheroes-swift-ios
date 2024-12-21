@@ -51,13 +51,37 @@ struct CustomHeroeCreateView: View {
                 
                 Spacer()
                 
-                CustomButton(
-                    title: "Guardar",
-                    color: Color("ColorGreen"),
-                    colorText: .white,
-                    destination: CustomHeroeView()
-                )
+                ZStack {
+                    Rectangle()
+                        .fill(Color("ColorGreen"))
+                        .frame(height: 50)
+                        .cornerRadius(8)
+                        .shadow(color: .black, radius: 0, x: 6, y: 8)
+                    
+                    Text("Guardar Superhéroe".uppercased())
+                        .font(.custom("Impact", size: 20))
+                        .foregroundColor(.white)
+                }
+                .scaleEffect(1.05)
+                .animation(.easeInOut(duration: 0.2), value: true)
                 .padding(.horizontal, 30)
+                .onTapGesture {
+                    guard isHeroUnique(nombre: nombre) else {
+                        errorMessage = "Ya existe un superhéroe con este nombre."
+                        return
+                    }
+                    
+                    let newHeroe = CustomHeroe(nombre: nombre, alias: alias, poderes: poderes)
+                    context.insert(newHeroe)
+                    
+                    do {
+                        try context.save()
+                        dismiss()
+                    } catch {
+                        errorMessage = "Error al guardar el héroe."
+                    }
+                }
+                .disabled(nombre.isEmpty || alias.isEmpty || poderes.isEmpty)
                 .disabled(nombre.isEmpty || alias.isEmpty || poderes.isEmpty)
             }
         }
