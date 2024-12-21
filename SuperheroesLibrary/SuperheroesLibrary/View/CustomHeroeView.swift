@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct CustomHeroeView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
+
     @State private var isShowingSheet: Bool = false
     
     @Environment(\.modelContext) private var context
@@ -115,7 +116,7 @@ struct CustomHeroeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         Image(systemName: "arrow.uturn.backward")
                             .font(.system(size: 20, weight: .bold))

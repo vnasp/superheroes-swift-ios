@@ -29,7 +29,7 @@ final class SuperheroesLibraryUITests: XCTestCase {
         let nameField = app.textFields["Nombre"]
         XCTAssertTrue(nameField.exists, "No funciona o no está el campo Nombre del Héroe.")
         nameField.tap()
-        nameField.clearAndEnterText("SuperTester4")
+        nameField.clearAndEnterText("SuperTester3")
 
         let aliasField = app.textFields["Alias"]
         XCTAssertTrue(aliasField.exists, "No funciona o no está el campo Alias.")
@@ -47,7 +47,7 @@ final class SuperheroesLibraryUITests: XCTestCase {
         saveButton.tap()
 
         // 6. Revisar que la lista lo muestre
-        let newHero = app.staticTexts["SuperTester4"]
+        let newHero = app.staticTexts["SuperTester3"]
         XCTAssertTrue(newHero.exists, "El superhéroe creado no aparece en el listado.")
     }
 }

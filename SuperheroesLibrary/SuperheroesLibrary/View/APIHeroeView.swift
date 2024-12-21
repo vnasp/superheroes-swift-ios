@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct APIHeroeView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
+    
     @State private var isShowingSheet: Bool = false
     
     @StateObject private var viewModel = APIHeroeViewModel()
@@ -77,7 +78,7 @@ struct APIHeroeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         } label: {
                             Image(systemName: "arrow.uturn.backward")
                                 .font(.system(size: 20, weight: .bold))
