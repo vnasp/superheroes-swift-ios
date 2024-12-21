@@ -61,11 +61,16 @@ final class SuperheroesLibraryUITests: XCTestCase {
         XCTAssertTrue(editButton.exists, "El botón 'Editar' no existe para el héroe seleccionado")
         editButton.tap()
 
-        // 5. Editar los campos de nombre y poderes
+        // 5. Editar los campos de nombre, alias y poderes
         let nameField = app.textFields["Nombre del Héroe"]
         XCTAssertTrue(nameField.exists, "El campo de nombre no está disponible")
         nameField.tap()
         nameField.clearAndEnterText("Héroe Modificado")
+
+        let aliasField = app.textFields["Alias del Héroe"]
+        XCTAssertTrue(nameField.exists, "El campo de alais no está disponible")
+        aliasField.tap()
+        aliasField.clearAndEnterText("Héroe Modificado")
 
         let powersField = app.textFields["Poderes"]
         XCTAssertTrue(powersField.exists, "El campo de poderes no está disponible")

@@ -30,15 +30,16 @@ class CustomHeroeViewModel: ObservableObject {
         }
     }
 
-    func addHero(nombre: String, poderes: String) {
-        let newHero = CustomHeroe(nombre: nombre, poderes: poderes)
+    func addHero(nombre: String, alias: String, poderes: String) {
+        let newHero = CustomHeroe(nombre: nombre, alias: alias, poderes: poderes)
         context.insert(newHero)
         saveContext()
         fetchHeroes()
     }
 
-    func editHero(heroe: CustomHeroe, nuevoNombre: String, nuevosPoderes: String) {
+    func editHero(heroe: CustomHeroe, nuevoNombre: String, nuevosAlias: String, nuevosPoderes: String) {
         heroe.nombre = nuevoNombre
+        heroe.alias = nuevosAlias
         heroe.poderes = nuevosPoderes
         saveContext()
         fetchHeroes()

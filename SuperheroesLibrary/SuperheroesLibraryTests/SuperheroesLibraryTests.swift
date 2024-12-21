@@ -35,16 +35,19 @@ final class SuperheroesLibraryTests: XCTestCase {
     
     func testEditHeroe() throws {
            // Configuración: Crear un héroe de ejemplo
-           let heroe = CustomHeroe(nombre: "Héroe Inicial", poderes: "Poder Inicial")
+           let heroe = CustomHeroe(nombre: "Héroe Inicial", alias: "Heroito, El misterior Sr. Héroe", poderes: "Poder Inicial")
            
            // Simular edición del héroe
            let nuevoNombre = "Héroe Modificado"
+           let nuevosAlias = "El héroe de acero"
            let nuevosPoderes = "Poder Modificado"
            heroe.nombre = nuevoNombre
+           heroe.alias = nuevosAlias
            heroe.poderes = nuevosPoderes
            
            // Verificación: Comprobar que los datos del héroe se actualizaron
            XCTAssertEqual(heroe.nombre, nuevoNombre, "El nombre del héroe no se actualizó correctamente.")
+           XCTAssertEqual(heroe.alias, nuevosAlias, "El alias del héroe no se actualizó correctamente.")
            XCTAssertEqual(heroe.poderes, nuevosPoderes, "Los poderes del héroe no se actualizaron correctamente.")
        }
 

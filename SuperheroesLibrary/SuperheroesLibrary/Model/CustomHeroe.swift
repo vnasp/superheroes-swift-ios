@@ -17,11 +17,13 @@ class CustomHeroe: Identifiable, Hashable {
 
     @Attribute(.unique) var id: UUID
     var nombre: String
+    var alias: String
     var poderes: String
     
-    init(id: UUID = UUID(), nombre: String, poderes: String) {
+    init(id: UUID = UUID(), nombre: String, alias: String, poderes: String) {
         self.id = id
         self.nombre = nombre
+        self.alias = alias
         self.poderes = poderes
     }
 }
